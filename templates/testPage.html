@@ -2,7 +2,9 @@
 {% block content %}
 
     <div class="row">
-        Hiya
+        {% for user in users %} 
+            {{ user.testName }}
+        {% endfor %}
     </div>
 
 {% endblock %}

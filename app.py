@@ -21,8 +21,9 @@ mongo = PyMongo(app)
 @app.route("/")
 @app.route("/home")
 def get_home():
-    return render_template("testPage.html")
-
+    users = mongo.db.users.find()
+    print("hi")
+    return render_template("testPage.html", users=users)
 
 
 if __name__ == "__main__":

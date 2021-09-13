@@ -9,7 +9,7 @@ stock:
 users:
 - 
 
-stored on mongoDB
+stored on mongoDB - https://cloud.mongodb.com/v2/61139e25f0eba81f9f45682c#metrics/replicaSet/613f6895e52339380b7ad052/explorer/Stock/stock/find
 
 Heroku app can be found here: https://backend-development-thingy.herokuapp.com/
 
