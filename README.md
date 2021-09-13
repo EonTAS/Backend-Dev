@@ -11,6 +11,8 @@ users:
 
 stored on mongoDB
 
+Heroku app can be found here: https://backend-development-thingy.herokuapp.com/
+
 # User Stories :
 
 
