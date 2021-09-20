@@ -5,6 +5,7 @@ from flask import (
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 from werkzeug.security import generate_password_hash, check_password_hash
+
 if os.path.exists("env.py"):
     import env
 
@@ -21,9 +22,31 @@ mongo = PyMongo(app)
 @app.route("/")
 @app.route("/home")
 def get_home():
-    users = mongo.db.users.find()
-    print("hi")
-    return render_template("testPage.html", users=users)
+    return render_template("home.html")
+
+@app.route("/")
+@app.route("/home")
+def get_user():
+    return render_template("home.html")
+
+@app.route("/register", methods=["GET", "POST"])
+def register():
+    if request.method == "POST":
+        username = request.form.get("username").lower()
+        existing = mongo.db.users.find_one({"username": username})
+        if existing:
+            flash("user already exists")
+            return redirect(url_for("register"))
+        
+        register = {
+            "username": username,
+            "password": generate_password_hash(request.form.get("password"))
+        }
+        mongo.db.users.insert_one(register)
+        session["user"] = username
+        flash("registration successful")
+        return redirect(url_for("get_home"))
+    return render_template("register.html")
 
 
 if __name__ == "__main__":
