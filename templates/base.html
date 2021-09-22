@@ -16,12 +16,12 @@
         <!-- allows one list to use in multiple places -->  
         {% macro pageList() %}
             <li><a href="{{ url_for('get_home') }}">Home</a></li>
-            <li><a href="{{ url_for('get_user') }}">Profile</a></li>
-            <li><a href="#">Log in</a></li>
+            <li><a href="{{ url_for('get_user', username=session['user']) }}">Profile</a></li>
+            <li><a href="{{ url_for('login')}}">Log in</a></li>
             <li><a href="#">Purchases</a></li>
             <li><a href="#">Store</a></li>
             <li><a href="#">Basket</a></li>
-            <li><a href="#">Log out</a></li>
+            <li><a href="{{ url_for('logout')}}">Log out</a></li>
             <li><a href="{{ url_for('register')}}">Register</a></li>
         {% endmacro %}
 

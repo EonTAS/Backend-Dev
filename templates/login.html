@@ -3,10 +3,10 @@
 
 
 <!-- fix this https://learn.codeinstitute.net/courses/course-v1:CodeInstitute+DCP101+2017_T3/courseware/9e2f12f5584e48acb3c29e9b0d7cc4fe/96d22c817aff4ce39e336fcb96c30e16/ -->
-    <h3 class="center-align">Register</h3>
+    <h3 class="center-align">Log In</h3>
 
     <div class="row">
-        <form class="col s12 m8 offset-m2" method="POST" action="{{ url_for('register') }}">
+        <form class="col s12 m8 offset-m2" method="POST" action="{{ url_for('login') }}">
             <div class="card-panel">
                 <!-- username -->
                 <div class="row">
@@ -24,20 +24,21 @@
                         <label for="password">Password</label>
                     </div>
                 </div>
-                <!-- register -->
+                <!-- log in -->
                 <div class="row">
                     <button type="submit" class="col s12 btn-large teal lighten-1">
-                        Register <i class="material-icons">chevron_right</i>
+                        Log in <i class="material-icons">chevron_right</i>
                     </button>
                 </div>
             </div>
         </form>
     </div>
+
     <div class="row">
         <div class="col s12">
             <div class="center-align">
                 New Here?
-                <a href="{{ url_for('register') }}"> Log in </a>
+                <a href="{{ url_for('register') }}"> Register Account </a>
             </div>
         </div>
     </div>
