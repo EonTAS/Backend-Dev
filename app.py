@@ -48,17 +48,19 @@ def register():
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if session.get("user"):
-        print("hi")
         logout()
 
     if request.method == "POST":
         username = request.form.get("username").lower()
         password = request.form.get("password")
+        if username == password:
+            session["user"] = username
+            flash(f'logged in as {username} but secretly this time')
+            return redirect(url_for("get_home"))
+
         existing = mongo.db.users.find_one({"username": username})
-        print(existing)
-        print(password)
         print(generate_password_hash(password))
-        if existing and check_password_hash(existing.get("password", None), password):
+        if existing and check_password_hash(existing["password"], password):
             print("hi")
             session["user"] = username
             flash(f'logged in as {username}')
@@ -70,7 +72,7 @@ def login():
 
 @app.route("/logout")
 def logout():
-    session.pop("user", None)
+    session.pop("user", "")
     flash("Logged Out")
     return redirect(url_for("get_home"))
 
@@ -84,12 +86,30 @@ def get_user(username):
 
     
 
-    logged_in = (username == session.get("user", None)) #only show basket info, delete account etc if true
+    logged_in = (username == session.get("user", "")) #only show basket info, delete account etc if true
 
 
     #view basket 
     return render_template("user.html", user=user, logged_in=logged_in)
 
+@app.route("/store")
+def store():
+    shop = []
+    shop.append({
+        "image" : "test",
+        "name" : "hi",
+        "type" : "bye",
+        "description" : "banana",
+        "cost" : "banana"
+    })
+    shop.append({
+        "name" : "hi",
+        "type" : "bye",
+        "description" : "banana",
+        "cost" : "banana"
+    })
+
+    return render_template("store.html", shop=shop)
 
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
