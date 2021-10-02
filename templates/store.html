@@ -2,21 +2,60 @@
 {% block content %}
 <ul class="collection">
     {% for item in shop %}
-        {% for i in range(0,3) %}
         <li class="collection-item avatar">
-            {% if item.get("image", None) %}
-                <img src="{{item.image}}" alt="" class="circle">
+            {% if item.get("image_url", None) %}
+                <img src="{{item.image_url}}" alt="" class="circle">
             {% else %}
                 <i class="material-icons circle red">play_arrow</i>
             {% endif %}
-            <span class="title">{{item.name}}</span>
-            <p>{{item.type}}<br>
+            <span class="title"><b>{{item.name}} - £{{item.cost}}</b></span>
+            <p>
+                {{item.type}}
+                <br>
                 {{item.description}}
             </p>
             
+            {% if session.get("user", "") == "admin" %} 
+                <a href="#!" class="">REMOVE ITEM<i class="material-icons">delete</i></a>
+            {% endif %}
             <a href="#!" class="secondary-content">ADD TO BASKET<i class="material-icons">grade</i></a>
         </li>
-        {% endfor %}
     {% endfor %}
+    {% if session.get("user", "") == "admin" %} 
+        <li class="collection-item avatar">
+        </li>
+        <li class="collection-item avatar">
+            <h4>
+                New Item?
+            </h4>
+            <form class="col s12 m8 offset-m2" method="POST" action="{{ url_for('store') }}">
+                <div class="input-field col s12">
+                    <input id="name" name="name" type="text" class="validate" pattern = "^[a-ZA-Z0-9]$" minlength="5" required>
+                    <label for="name">Name</label>
+                </div>
+                <div class="input-field col s12">
+                    <input id="type" name="type" type="text" required>
+                    <label for="type">Type</label>
+                </div>
+                <div class="input-field col s12">
+                    <input id="cost" name="cost" type="number" min="0.00" step="0.01" required>
+                    <label for="cost">Price - £</label>
+                </div>
+                <div class="input-field col s12">
+                    <input id="description" name="description" type="text" required>
+                    <label for="description">Description</label>
+                </div>
+                <div class="input-field col s12">
+                    <input id="image_url" name="image_url" type="text">
+                    <label for="image_url">Image</label>
+                </div>
+                <div class="row">
+                    <button type="submit" class="col s12 btn-large teal lighten-1">
+                        Add Item <i class="material-icons">chevron_right</i>
+                    </button>
+                </div>
+            </form>
+        </li>
+    {% endif %} 
 </ul>
 {% endblock %}

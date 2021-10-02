@@ -92,22 +92,14 @@ def get_user(username):
     #view basket 
     return render_template("user.html", user=user, logged_in=logged_in)
 
-@app.route("/store")
+@app.route("/store", methods=["GET", "POST"])
 def store():
-    shop = []
-    shop.append({
-        "image" : "test",
-        "name" : "hi",
-        "type" : "bye",
-        "description" : "banana",
-        "cost" : "banana"
-    })
-    shop.append({
-        "name" : "hi",
-        "type" : "bye",
-        "description" : "banana",
-        "cost" : "banana"
-    })
+    if request.method == "POST" and session.get("user", "") == "admin":        
+        item = request.form.to_dict()
+        print(item)
+        mongo.db.stock.insert_one(item)
+
+    shop = mongo.db.stock.find()
 
     return render_template("store.html", shop=shop)
 
