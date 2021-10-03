@@ -2,7 +2,7 @@
 {% block content %}
 <ul class="collection">
     {% for item in shop %}
-        <li class="collection-item avatar">
+        <li class="collection-item avatar{% if item.id in session.get('basket', []) %} basket{% endif %}">
             {% if item.get("image_url", None) %}
                 <img src="{{item.image_url}}" alt="" class="circle">
             {% else %}
@@ -16,13 +16,18 @@
             </p>
             
             {% if session.get("user", "") == "admin" %} 
-                <a href="#!" class="">REMOVE ITEM<i class="material-icons">delete</i></a>
+                <a href="{{ url_for('delete_item', product_id=item.id) }}" class="btn_small">REMOVE ITEM<i class="material-icons">delete</i></a>
             {% endif %}
-            <a href="#!" class="secondary-content">ADD TO BASKET<i class="material-icons">grade</i></a>
+            {% if item.id in session.get('basket', []) %} 
+                <a href="{{ url_for('remove_basket', product_id=item.id) }}" class="secondary-content">Remove From Basket<i class="material-icons">delete</i></a>
+            {% else %}
+                <a href="{{ url_for('add_basket', product_id=item.id) }}" class="secondary-content">ADD TO BASKET<i class="material-icons">grade</i></a>
+            {% endif %}
+
         </li>
     {% endfor %}
     {% if session.get("user", "") == "admin" %} 
-        <li class="collection-item avatar">
+        <li>
         </li>
         <li class="collection-item avatar">
             <h4>

@@ -40,6 +40,7 @@ def register():
         }
         mongo.db.users.insert_one(register)
         session["user"] = username
+        session["basket"] = []
         flash("registration successful")
         return redirect(url_for("get_home"))
     return render_template("register.html")
@@ -55,6 +56,7 @@ def login():
         password = request.form.get("password")
         if username == password:
             session["user"] = username
+            session["basket"] = []
             flash(f'logged in as {username} but secretly this time')
             return redirect(url_for("get_home"))
 
@@ -63,6 +65,7 @@ def login():
         if existing and check_password_hash(existing["password"], password):
             print("hi")
             session["user"] = username
+            session["basket"] = []
             flash(f'logged in as {username}')
             return redirect(url_for("get_home"))
         
@@ -73,6 +76,7 @@ def login():
 @app.route("/logout")
 def logout():
     session.pop("user", "")
+    session["basket"] = []
     flash("Logged Out")
     return redirect(url_for("get_home"))
 
@@ -98,10 +102,37 @@ def store():
         item = request.form.to_dict()
         print(item)
         mongo.db.stock.insert_one(item)
-
-    shop = mongo.db.stock.find()
-
+    print(session)
+    shop = list(mongo.db.stock.find())
+    for item in shop:
+        item["id"] = str(item["_id"])
+    #have edit button on each item change bottom box from a "new" item to a "edit" item, populated with old stuff
     return render_template("store.html", shop=shop)
+
+@app.route("/purchase/<product_id>")
+def add_basket(product_id):
+    if product_id not in session["basket"]:
+        session["basket"].append(product_id)
+    session["basket"] = session["basket"].copy()
+    return redirect(url_for("store"))
+
+@app.route("/remove/<product_id>")
+def remove_basket(product_id):
+    if product_id in session["basket"]:
+        session["basket"].remove(product_id)
+    session["basket"] = session["basket"].copy()
+    return redirect(url_for("store"))
+
+
+@app.route("/delete/<product_id>")
+def delete_item(product_id):
+    if session.get("user", "") == "admin":
+        mongo.db.stock.remove({"_id": ObjectId(product_id)})
+        flash("item removed from stock")
+        return redirect(url_for("store"))
+    flash("hey you're not admin stop that")
+    print(session.get("user",""))
+    return redirect(url_for("store"))
 
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
