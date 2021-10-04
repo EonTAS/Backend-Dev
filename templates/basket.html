@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+<ul class="collection">
+    {% for item in basket %}
+        <li class="collection-item avatar{% if item.id in session.get('basket', []) %} basket{% endif %}">
+            {% if item.get("image_url", None) %}
+                <img src="{{item.image_url}}" alt="" class="circle">
+            {% else %}
+                <i class="material-icons circle red">play_arrow</i>
+            {% endif %}
+            <span class="title"><b>{{item.name}} - £{{item.cost}}</b></span>
+            <p>
+                {{item.type}}
+                <br>
+                {{item.description}}
+            </p>
+            
+            <a href="{{ url_for('add_basket', product_id=item.id) }}" class="secondary-content">ADD TO BASKET<i class="material-icons">grade</i></a>
+
+        </li>
+    {% endfor %}
+</ul>
+{% endblock %}

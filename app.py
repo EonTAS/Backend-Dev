@@ -113,14 +113,14 @@ def store():
 def add_basket(product_id):
     if product_id not in session["basket"]:
         session["basket"].append(product_id)
-    session["basket"] = session["basket"].copy()
+        session.modified = True
     return redirect(url_for("store"))
 
 @app.route("/remove/<product_id>")
 def remove_basket(product_id):
     if product_id in session["basket"]:
         session["basket"].remove(product_id)
-    session["basket"] = session["basket"].copy()
+        session.modified = True
     return redirect(url_for("store"))
 
 
@@ -133,6 +133,13 @@ def delete_item(product_id):
     flash("hey you're not admin stop that")
     print(session.get("user",""))
     return redirect(url_for("store"))
+
+@app.route("/cart")
+def getCart():
+    #creates a query that returns every item in the sessions basket
+    q = {"_id" : {"$in" : [ObjectId(id) for id in session["basket"]]}}
+    basket = list(mongo.db.stock.find(q))
+    return render_template("basket.html", basket=basket)
 
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
