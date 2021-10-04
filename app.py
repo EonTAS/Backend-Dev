@@ -139,7 +139,18 @@ def getCart():
     #creates a query that returns every item in the sessions basket
     q = {"_id" : {"$in" : [ObjectId(id) for id in session["basket"]]}}
     basket = list(mongo.db.stock.find(q))
-    return render_template("basket.html", basket=basket)
+    cost = sum(float(item["cost"]) for item in basket)
+    print(cost)
+    return render_template("basket.html", basket=basket, totalCost=cost)
+
+@app.route("/sendPurchase")
+def purchaseAll(cost):
+#    balance = 0
+#    balance = balance - cost
+#    database.pop(basket)
+#    basket = []
+    return render_template("user.html")
+
 
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
