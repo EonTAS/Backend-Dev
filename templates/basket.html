@@ -1,8 +1,11 @@
 {% extends "base.html" %}
 {% block content %}
+{% if basket|length == 0%} 
+    No items in basket, why not go to  the {store} and add something to your basket before coming here?
+{%else%}
 <ul class="collection">
     {% for item in basket %}
-        <li class="collection-item avatar{% if item.id in session.get('basket', []) %} basket{% endif %}">
+        <li class="collection-item avatar">
             {% if item.get("image_url", None) %}
                 <img src="{{item.image_url}}" alt="" class="circle">
             {% else %}
@@ -15,9 +18,34 @@
                 {{item.description}}
             </p>
             
-            <a href="{{ url_for('add_basket', product_id=item.id) }}" class="secondary-content">ADD TO BASKET<i class="material-icons">grade</i></a>
+            <a href="{{ url_for('remove_basket', product_id=item._id) }}" class="secondary-content">Remove from basket<i class="material-icons">grade</i></a>
 
         </li>
     {% endfor %}
 </ul>
+price = {{totalCost}}
+<!-- Modal Trigger -->
+<a class="waves-effect waves-light btn modal-trigger" href="#modal1">Buy!</a>
+
+<!-- Modal Structure -->
+<div id="modal1" class="modal .modal-close">
+    <div class="modal-content">
+        <h4>Confirm Purchase</h4>
+        <p>Are you sure you want to buy {%if basket| length == 1%} this item {%else%} these {{basket|length}} items {%endif%} 
+            for <b>£{{totalCost}}</b>?
+        </p>
+    </div>
+    <div class="modal-footer">
+        <a href="#!" class="modal-close waves-effect waves-green btn-flat">Cancel</a>
+        <a href="{{url_for('purchaseAll')}}" class="modal-close waves-effect waves-green btn">Buy!</a>
+    </div>
+</div>
+{%endif%}
+{% endblock %}
+
+{% block scripts %} 
+  <script>
+  $(document).ready(function(){
+    $('.modal').modal();
+  });</script>
 {% endblock %}

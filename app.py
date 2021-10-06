@@ -61,9 +61,7 @@ def login():
             return redirect(url_for("get_home"))
 
         existing = mongo.db.users.find_one({"username": username})
-        print(generate_password_hash(password))
         if existing and check_password_hash(existing["password"], password):
-            print("hi")
             session["user"] = username
             session["basket"] = []
             flash(f'logged in as {username}')
@@ -100,9 +98,8 @@ def get_user(username):
 def store():
     if request.method == "POST" and session.get("user", "") == "admin":        
         item = request.form.to_dict()
-        print(item)
         mongo.db.stock.insert_one(item)
-    print(session)
+
     shop = list(mongo.db.stock.find())
     for item in shop:
         item["id"] = str(item["_id"])
@@ -114,14 +111,16 @@ def add_basket(product_id):
     if product_id not in session["basket"]:
         session["basket"].append(product_id)
         session.modified = True
-    return redirect(url_for("store"))
+        flash("added to basket")
+    return redirect(request.referrer)
 
 @app.route("/remove/<product_id>")
 def remove_basket(product_id):
     if product_id in session["basket"]:
         session["basket"].remove(product_id)
         session.modified = True
-    return redirect(url_for("store"))
+        flash("removed from basket")
+    return redirect(request.referrer)
 
 
 @app.route("/delete/<product_id>")
@@ -131,7 +130,6 @@ def delete_item(product_id):
         flash("item removed from stock")
         return redirect(url_for("store"))
     flash("hey you're not admin stop that")
-    print(session.get("user",""))
     return redirect(url_for("store"))
 
 @app.route("/cart")
@@ -139,17 +137,16 @@ def getCart():
     #creates a query that returns every item in the sessions basket
     q = {"_id" : {"$in" : [ObjectId(id) for id in session["basket"]]}}
     basket = list(mongo.db.stock.find(q))
-    cost = sum(float(item["cost"]) for item in basket)
-    print(cost)
+    cost = "%.2f" % sum(float(item["cost"]) for item in basket)
     return render_template("basket.html", basket=basket, totalCost=cost)
 
 @app.route("/sendPurchase")
-def purchaseAll(cost):
+def purchaseAll():
 #    balance = 0
 #    balance = balance - cost
 #    database.pop(basket)
 #    basket = []
-    return render_template("user.html")
+    return render_template("home.html")
 
 
 if __name__ == "__main__":

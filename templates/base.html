@@ -19,7 +19,7 @@
             <li><a href="{{ url_for('store')}}">Store</a></li>
             {% if session.get("user", "") %}
                 <li><a href="{{ url_for('get_user', username=session['user']) }}">Profile: {{session['user']}}</a></li>
-                <li><a href="#">Purchases</a></li>
+                <!--<li><a href="#">Purchases</a></li>-->
                 <li><a href="{{ url_for('getCart') }}">Basket</a></li>
                 <li><a href="{{ url_for('logout')}}">Log out</a></li>
             {% else %}  
