@@ -41,6 +41,7 @@ def register():
         mongo.db.users.insert_one(register)
         session["user"] = username
         session["basket"] = []
+        session["balance"] = 1000.0
         flash("registration successful")
         return redirect(url_for("get_home"))
     return render_template("register.html")
@@ -57,6 +58,7 @@ def login():
         if username == password:
             session["user"] = username
             session["basket"] = []
+            session["balance"] = 1000.0
             flash(f'logged in as {username} but secretly this time')
             return redirect(url_for("get_home"))
 
@@ -64,6 +66,7 @@ def login():
         if existing and check_password_hash(existing["password"], password):
             session["user"] = username
             session["basket"] = []
+            session["balance"] = 1000.0
             flash(f'logged in as {username}')
             return redirect(url_for("get_home"))
         
@@ -75,6 +78,7 @@ def login():
 def logout():
     session.pop("user", "")
     session["basket"] = []
+    session["balance"] = 0
     flash("Logged Out")
     return redirect(url_for("get_home"))
 
@@ -98,7 +102,9 @@ def get_user(username):
 def store():
     if request.method == "POST" and session.get("user", "") == "admin":        
         item = request.form.to_dict()
+        item["sold"] = False
         mongo.db.stock.insert_one(item)
+
 
     shop = list(mongo.db.stock.find())
     for item in shop:
@@ -141,7 +147,18 @@ def getCart():
     return render_template("basket.html", basket=basket, totalCost=cost)
 
 @app.route("/sendPurchase")
-def purchaseAll():
+def purchaseAll():    
+    q = {"_id": {"$in": [ObjectId(id) for id in session["basket"]]}}
+    basket = list(mongo.db.stock.find(q))
+    cost = sum(float(item["cost"]) for item in basket)
+    if cost <= session["balance"]: 
+        bought = {"$set": {"boughtBy": session["user"], "sold": True}}
+        mongo.db.stock.update_many(q, bought)
+        session["basket"] = []
+        session["balance"] = session["balance"] - cost
+        flash("items bought")
+
+    
 #    balance = 0
 #    balance = balance - cost
 #    database.pop(basket)
