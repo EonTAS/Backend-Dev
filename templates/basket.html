@@ -23,25 +23,32 @@
         </li>
     {% endfor %}
 </ul>
-price = {{totalCost}}
+price = {{"%.2f"|format(totalCost)}}
 <br> 
-balance = {{session.balance}}
+balance = {{"%.2f"|format(balance)}}
 <!-- Modal Trigger -->
-<a class="waves-effect waves-light btn modal-trigger" href="#modal1">Buy!</a>
+{%if totalCost <= balance%}
+    <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Buy!</a>
 
-<!-- Modal Structure -->
-<div id="modal1" class="modal .modal-close">
-    <div class="modal-content">
-        <h4>Confirm Purchase</h4>
-        <p>Are you sure you want to buy {%if basket| length == 1%} this item {%else%} these {{basket|length}} items {%endif%} 
-            for <b>£{{totalCost}}</b>?
-        </p>
+    <!-- Modal Structure -->
+    <div id="modal1" class="modal .modal-close">
+        <div class="modal-content">
+            <h4>Confirm Purchase</h4>
+            <p>Are you sure you want to buy {%if basket| length == 1%} this item {%else%} these {{basket|length}} items {%endif%} 
+                for <b>£{{totalCost}}</b>?
+            </p>
+            <p>
+                This will bring your total balance to £{{"%.2f"|format(balance-totalCost)}}
+            </p>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-close waves-effect waves-green btn-flat">Cancel</a>
+            <a href="{{url_for('purchaseAll')}}" class="modal-close waves-effect waves-green btn">Buy!</a>
+        </div>
     </div>
-    <div class="modal-footer">
-        <a href="#!" class="modal-close waves-effect waves-green btn-flat">Cancel</a>
-        <a href="{{url_for('purchaseAll')}}" class="modal-close waves-effect waves-green btn">Buy!</a>
-    </div>
-</div>
+{%else%}
+    You cant affor that, {deposit} more?
+{%endif%}
 {%endif%}
 {% endblock %}
 

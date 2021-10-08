@@ -36,12 +36,12 @@ def register():
         
         register = {
             "username": username,
-            "password": generate_password_hash(request.form.get("password"))
+            "password": generate_password_hash(request.form.get("password")),
+            "balance" : 0.0
         }
         mongo.db.users.insert_one(register)
         session["user"] = username
         session["basket"] = []
-        session["balance"] = 1000.0
         flash("registration successful")
         return redirect(url_for("get_home"))
     return render_template("register.html")
@@ -55,18 +55,11 @@ def login():
     if request.method == "POST":
         username = request.form.get("username").lower()
         password = request.form.get("password")
-        if username == password:
-            session["user"] = username
-            session["basket"] = []
-            session["balance"] = 1000.0
-            flash(f'logged in as {username} but secretly this time')
-            return redirect(url_for("get_home"))
 
         existing = mongo.db.users.find_one({"username": username})
         if existing and check_password_hash(existing["password"], password):
             session["user"] = username
             session["basket"] = []
-            session["balance"] = 1000.0
             flash(f'logged in as {username}')
             return redirect(url_for("get_home"))
         
@@ -78,17 +71,20 @@ def login():
 def logout():
     session.pop("user", "")
     session["basket"] = []
-    session["balance"] = 0
     flash("Logged Out")
     return redirect(url_for("get_home"))
 
-@app.route("/user/<username>")
+@app.route("/user/<username>", methods=["GET", "POST"])
 def get_user(username):
+    if request.method == "POST":
+        deposit_value = float(request.form.get("deposit"))
+        update_balance(username, deposit_value)
+        
 
+    user = mongo.db.users.find_one({"username": session["user"]})
     #name
     #id
     #delete account
-    user = mongo.db.users.find_one({"username": session["user"]})
 
     
 
@@ -143,28 +139,38 @@ def getCart():
     #creates a query that returns every item in the sessions basket
     q = {"_id" : {"$in" : [ObjectId(id) for id in session["basket"]]}}
     basket = list(mongo.db.stock.find(q))
-    cost = "%.2f" % sum(float(item["cost"]) for item in basket)
-    return render_template("basket.html", basket=basket, totalCost=cost)
+    cost = sum(float(item["cost"]) for item in basket)
+    balance = get_balance(session["user"])
+    return render_template("basket.html", basket=basket, totalCost=cost, balance=balance)
 
 @app.route("/sendPurchase")
 def purchaseAll():    
     q = {"_id": {"$in": [ObjectId(id) for id in session["basket"]]}}
     basket = list(mongo.db.stock.find(q))
     cost = sum(float(item["cost"]) for item in basket)
-    if cost <= session["balance"]: 
+    if cost <= get_balance(session["user"]): 
         bought = {"$set": {"boughtBy": session["user"], "sold": True}}
         mongo.db.stock.update_many(q, bought)
         session["basket"] = []
-        session["balance"] = session["balance"] - cost
+        update_balance(session["user"], -cost)
         flash("items bought")
 
     
-#    balance = 0
-#    balance = balance - cost
-#    database.pop(basket)
-#    basket = []
     return render_template("home.html")
 
+def get_balance(username):
+    user =  mongo.db.users.find_one({"username": username}, {"balance":1})
+    return user.get("balance", 0)
+
+def update_balance(username, change):
+    print("hi")
+    user = mongo.db.users.find_one({"username": username}, {"balance":1})
+    print(user)
+    curr_balance = user.get("balance", 0)
+    new_balance = curr_balance + change 
+    print(new_balance)
+    mongo.db.users.update_one({"username": username}, {"$set": {"balance": new_balance}})
+    
 
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
