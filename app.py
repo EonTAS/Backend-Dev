@@ -80,8 +80,10 @@ def get_user(username):
         update_balance(username, deposit_value)
         
 
-    user = mongo.db.users.find_one({"username": session["user"]})
-    items = list(mongo.db.stock.find({"boughtBy": session["user"]}))
+    user = mongo.db.users.find_one({"username": username})
+    if not user:
+        return redirect(url_for("get_user", username=session["user"]))
+    items = list(mongo.db.stock.find({"boughtBy": username}))
     print(items)
 
     logged_in = (username == session.get("user", "") or session.get("user","") == "admin")
