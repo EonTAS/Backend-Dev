@@ -69,8 +69,7 @@ def login():
 
 @app.route("/logout")
 def logout():
-    session.pop("user", "")
-    session["basket"] = []
+    session.clear()
     flash("Logged Out")
     return redirect(url_for("get_home"))
 
@@ -82,17 +81,23 @@ def get_user(username):
         
 
     user = mongo.db.users.find_one({"username": session["user"]})
-    #name
-    #id
-    #delete account
+    items = list(mongo.db.stock.find({"boughtBy": session["user"]}))
+    print(items)
 
+    logged_in = (username == session.get("user", "") or session.get("user","") == "admin")
+
+    return render_template("user.html", user=user, logged_in=logged_in, items=items)
+
+@app.route("/deleteUser/<username>")
+def delete_account(username):
     
-
-    logged_in = (username == session.get("user", "")) #only show basket info, delete account etc if true
-
-
-    #view basket 
-    return render_template("user.html", user=user, logged_in=logged_in)
+    if username == session["user"] or session["user"] == "admin":
+        mongo.db.users.delete_one({"username": username})
+        flash("user deleted")
+        session.clear()
+        return redirect(url_for("store"))
+    flash("hey you're not admin stop that")
+    return redirect(url_for("store"))
 
 @app.route("/store", methods=["GET", "POST"])
 def store():

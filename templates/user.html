@@ -35,11 +35,37 @@
                         <div class="modal-footer">
                             <a href="#!" class="modal-close waves-effect waves-green btn-flat">Cancel</a>
                         </div>
+                    </div><!-- Modal Trigger -->
+                    <a class="waves-effect modal-trigger" href="#modal2">View Bought Items</a>
+                    
+                    <!-- Modal Structure -->
+                    <div id="modal2" class="modal .modal-close">
+                        <div class="modal-content">
+                            <ul class="collection">
+                                {% for item in items %}
+                                    <li class="collection-item avatar">
+                                        {% if item.get("image_url", None) %}
+                                            <img src="{{item.image_url}}" alt="" class="circle">
+                                        {% else %}
+                                            <i class="material-icons circle red">play_arrow</i>
+                                        {% endif %}
+                                        <span class="title"><b>{{item.name}} - £{{item.cost}}</b></span>
+                                        <p>
+                                            {{item.type}}
+                                            <br>
+                                            {{item.description}}
+                                        </p>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        <div class="modal-footer">
+                            <a href="#!" class="modal-close waves-effect waves-green btn-flat">Cancel</a>
+                        </div>
                     </div>
-                    <a href="#">View Bought Items</a>
                 </div>
                 <div class="card-action">
-                    <a href="#">Delete Account</a>
+                    <a href="{{ url_for('delete_account', username=user.username) }}">Delete Account</a>
                 </div>
             {% endif %}
         </div>

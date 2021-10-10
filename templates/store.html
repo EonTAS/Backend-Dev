@@ -6,7 +6,7 @@
 {%endif%}
 <ul class="collection">
     {% for item in shop %}
-        <li class="collection-item avatar{% if item.id in session.get('basket', []) %} basket{% endif %}">
+        <li class="collection-item avatar{% if item.id in session.get('basket', []) %} basket{% endif %} {% if item.sold %} sold {% endif %}">
             {% if item.get("image_url", None) %}
                 <img src="{{item.image_url}}" alt="" class="circle">
             {% else %}
@@ -22,7 +22,7 @@
             {% if session.get("user", "") == "admin" %} 
                 <a href="{{ url_for('delete_item', product_id=item.id) }}" class="btn_small">REMOVE ITEM<i class="material-icons">delete</i></a>
             {% endif %}
-            {% if session.get("user","") %}
+            {% if session.get("user","") and not item.sold%}
                 {% if item.id in session.get('basket', []) %} 
                     <a href="{{ url_for('remove_basket', product_id=item.id) }}" class="secondary-content">Remove From Basket<i class="material-icons">delete</i></a>
                 {% else %}
