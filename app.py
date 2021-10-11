@@ -78,13 +78,12 @@ def get_user(username):
     if request.method == "POST":
         deposit_value = float(request.form.get("deposit"))
         update_balance(username, deposit_value)
+        flash(f'£{deposit_value:.2f} deposited')
         
-
     user = mongo.db.users.find_one({"username": username})
     if not user:
         return redirect(url_for("get_user", username=session["user"]))
     items = list(mongo.db.stock.find({"boughtBy": username}))
-    print(items)
 
     logged_in = (username == session.get("user", "") or session.get("user","") == "admin")
 
@@ -92,7 +91,6 @@ def get_user(username):
 
 @app.route("/deleteUser/<username>")
 def delete_account(username):
-    
     if username == session["user"] or session["user"] == "admin":
         mongo.db.users.delete_one({"username": username})
         flash("user deleted")
@@ -114,6 +112,16 @@ def store():
         item["id"] = str(item["_id"])
     #have edit button on each item change bottom box from a "new" item to a "edit" item, populated with old stuff
     return render_template("store.html", shop=shop)
+
+@app.route("/edit/<id>", methods=["GET", "POST"])
+def editItem(id):
+    print("hi")
+    if session.get("user", "")== "admin":
+        item = request.form.to_dict()
+        item["sold"] = bool(item["boughtBy"])
+        b = mongo.db.stock.update_one({"_id": ObjectId(id)}, {"$set": item})
+        print(b)
+    return redirect(url_for("store"))
 
 @app.route("/purchase/<product_id>")
 def add_basket(product_id):
@@ -170,13 +178,11 @@ def get_balance(username):
     return user.get("balance", 0)
 
 def update_balance(username, change):
-    print("hi")
     user = mongo.db.users.find_one({"username": username}, {"balance":1})
-    print(user)
     curr_balance = user.get("balance", 0)
     new_balance = curr_balance + change 
-    print(new_balance)
     mongo.db.users.update_one({"username": username}, {"$set": {"balance": new_balance}})
+
     
 
 if __name__ == "__main__":

@@ -21,6 +21,47 @@
             
             {% if session.get("user", "") == "admin" %} 
                 <a href="{{ url_for('delete_item', product_id=item.id) }}" class="btn_small">REMOVE ITEM<i class="material-icons">delete</i></a>
+                <a class="waves-effect waves-light btn modal-trigger" href="#modal{{item.id}}">Edit!</a>
+            
+                <!-- Modal Structure -->
+                <div id="modal{{item.id}}" class="modal .modal-close">
+                    <div class="modal-content">
+                        <form class="col s12 m8 offset-m2" method="POST" action="{{url_for('editItem', id=item.id)}}">
+                            <div class="input-field col s12">
+                                <input id="name" name="name" type="text" class="validate" pattern = "^[a-ZA-Z0-9]$" minlength="5" required value="{{item.name}}">
+                                <label for="name">Name</label>
+                            </div>
+                            <div class="input-field col s12">
+                                <input id="type" name="type" type="text" required value="{{item.type}}">
+                                <label for="type">Type</label>
+                            </div>
+                            <div class="input-field col s12">
+                                <input id="cost" name="cost" type="number" min="0.00" step="0.01" required value="{{item.cost}}">
+                                <label for="cost">Price - £</label>
+                            </div>
+                            <div class="input-field col s12">
+                                <input id="description" name="description" type="text" required value="{{item.description}}">
+                                <label for="description">Description</label>
+                            </div>
+                            <div class="input-field col s12">
+                                <input id="image_url" name="image_url" type="text" value="{{item.image_url}}">
+                                <label for="image_url">Image</label>
+                            </div>
+                            <div class="input-field col s12">
+                                <input id="boughtBy" name="boughtBy" type="text" value="{{item.boughtBy}}">
+                                <label for="boughtBy">Bought By</label>
+                            </div>
+                            <div class="row">
+                                <button type="submit" class="col s12 btn-large teal lighten-1">
+                                    Push Edit! <i class="material-icons">chevron_right</i>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="#!" class="modal-close waves-effect waves-green btn-flat">Cancel</a>
+                    </div>
+                </div>
             {% endif %}
             {% if session.get("user","") and not item.sold%}
                 {% if item.id in session.get('basket', []) %} 
@@ -69,4 +110,14 @@
         </li>
     {% endif %} 
 </ul>
+{% endblock %}
+{% block styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/store.css') }}" type="text/css">
+{% endblock %}
+{% block scripts %}
+
+<script>
+$(document).ready(function(){
+  $('.modal').modal();
+});</script>
 {% endblock %}
