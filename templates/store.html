@@ -74,13 +74,12 @@
         </li>
     {% endfor %}
     {% if session.get("user", "") == "admin" %} 
-        <li>
-        </li>
-        <li class="collection-item avatar">
-            <h4>
-                New Item?
-            </h4>
-            <form class="col s12 m8 offset-m2" method="POST" action="{{ url_for('store') }}">
+    <a class="waves-effect waves-light btn modal-trigger" href="#modalNew">new Item!</a>
+            
+    <!-- Modal Structure -->
+    <div id="modalNew" class="modal .modal-close">
+        <div class="modal-content">
+            <form class="col s12 m8 offset-m2" method="POST" action="{{url_for('newItem')}}">
                 <div class="input-field col s12">
                     <input id="name" name="name" type="text" class="validate" pattern = "^[a-ZA-Z0-9]$" minlength="5" required>
                     <label for="name">Name</label>
@@ -101,13 +100,21 @@
                     <input id="image_url" name="image_url" type="text">
                     <label for="image_url">Image</label>
                 </div>
+                <div class="input-field col s12">
+                    <input id="boughtBy" name="boughtBy" type="text">
+                    <label for="boughtBy">Bought By</label>
+                </div>
                 <div class="row">
                     <button type="submit" class="col s12 btn-large teal lighten-1">
-                        Add Item <i class="material-icons">chevron_right</i>
+                        Push Item! <i class="material-icons">chevron_right</i>
                     </button>
                 </div>
             </form>
-        </li>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-close waves-effect waves-green btn-flat">Cancel</a>
+        </div>
+    </div>
     {% endif %} 
 </ul>
 {% endblock %}
