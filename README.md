@@ -36,6 +36,10 @@ As a User:
 
 - Want to be able to delete my own account
 
+- Want to be able to log in to my account at a later time
+
+- Want to be able to log out of my account
+
 As an Admin:
 
 - Want to be able to add items to the store that can be bought
