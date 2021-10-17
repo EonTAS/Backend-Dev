@@ -24,7 +24,27 @@ Heroku app can be found here: https://backend-development-thingy.herokuapp.com/
 
 # User Stories :
 
+As a User:
 
+- Want to be able to make an account
+
+- Want to be able to purchase products from store
+
+- Want to be able to view items that I have purchased
+
+- Want to be able to deposit money into account so i can buy items
+
+- Want to be able to delete my own account
+
+As an Admin:
+
+- Want to be able to add items to the store that can be bought
+
+- Want to be able to edit items after they have been put up in case something is wrong
+
+- Want to be able to remove items from the store
+
+- Want to be able to delete an arbritary account if there is some problem with it
 
 # Features :
 
