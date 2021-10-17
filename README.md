@@ -28,8 +28,6 @@ As a User:
 
 - Want to be able to make an account
 
-- Want to be able to purchase products from store
-
 - Want to be able to view items that I have purchased
 
 - Want to be able to deposit money into account so i can buy items
@@ -39,6 +37,13 @@ As a User:
 - Want to be able to log in to my account at a later time
 
 - Want to be able to log out of my account
+
+- Want to be able to view all items in the store that i can buy
+
+- Want to be able to pick items I want to buy
+
+- Want to be able to buy items in basket
+
 
 As an Admin:
 
