@@ -1,46 +1,44 @@
 {% extends "base.html" %}
 {% block content %}
 
+<h3 class="center-align">Log In</h3>
 
-<!-- fix this https://learn.codeinstitute.net/courses/course-v1:CodeInstitute+DCP101+2017_T3/courseware/9e2f12f5584e48acb3c29e9b0d7cc4fe/96d22c817aff4ce39e336fcb96c30e16/ -->
-    <h3 class="center-align">Log In</h3>
-
-    <div class="row">
-        <form class="col s12 m8 offset-m2" method="POST" action="{{ url_for('login') }}">
-            <div class="card-panel">
-                <!-- username -->
-                <div class="row">
-					<div class="input-field col s12">
-						<i class="material-icons prefix teal-text text-darken-1">account_circle</i>
-						<input id="username" name="username" type="text" class="validate" pattern = "^[a-ZA-Z0-9]$" minlength="5" required>
-						<label for="username">Username</label>
-					</div>
-                </div>
-                <!-- password -->
-                <div class="row">
-                    <div class="input-field col s12">
-						<i class="material-icons prefix teal-text text-darken-1">lock</i>
-                        <input id="password" name="password" type="password" class="validate" minlength="5" required>
-                        <label for="password">Password</label>
-                    </div>
-                </div>
-                <!-- log in -->
-                <div class="row">
-                    <button type="submit" class="col s12 btn-large teal lighten-1">
-                        Log in <i class="material-icons">chevron_right</i>
-                    </button>
+<div class="row">
+    <form class="col s12 m8 offset-m2" method="POST" action="{{ url_for('login') }}">
+        <div class="card-panel">
+            <!-- username -->
+            <div class="row">
+                <div class="input-field col s12">
+                    <i class="material-icons prefix teal-text text-darken-1">account_circle</i>
+                    <input id="username" name="username" type="text" class="validate" pattern = "^[a-ZA-Z0-9]$" minlength="5" required>
+                    <label for="username">Username</label>
                 </div>
             </div>
-        </form>
-    </div>
-
-    <div class="row">
-        <div class="col s12">
-            <div class="center-align">
-                New Here?
-                <a href="{{ url_for('register') }}"> Register Account </a>
+            <!-- password -->
+            <div class="row">
+                <div class="input-field col s12">
+                    <i class="material-icons prefix teal-text text-darken-1">lock</i>
+                    <input id="password" name="password" type="password" class="validate" minlength="5" required>
+                    <label for="password">Password</label>
+                </div>
+            </div>
+            <!-- log in -->
+            <div class="row">
+                <button type="submit" class="col s12 btn-large teal lighten-1">
+                    Log in <i class="material-icons">chevron_right</i>
+                </button>
             </div>
         </div>
+    </form>
+</div>
+
+<div class="row">
+    <div class="col s12">
+        <div class="center-align">
+            New Here?
+            <a href="{{ url_for('register') }}"> Register Account </a>
+        </div>
     </div>
+</div>
 
 {% endblock %}

@@ -1,7 +1,14 @@
 {% extends "base.html" %}
 {% block content %}
-{% if basket|length == 0%} 
-    No items in basket, why not go to  the {store} and add something to your basket before coming here?
+<h3 class="center-align">Basket</h3>
+{% if basket|length == 0%}     
+
+<div class="row">
+    <div class="card-panel">
+        You dont have any items in your basket at the moment, 
+        Go to <a href="{{ url_for('get_store') }}">Store</a>?
+    </div>
+</div>
 {%else%}
 <ul class="collection">
     {% for item in basket %}
@@ -23,9 +30,15 @@
         </li>
     {% endfor %}
 </ul>
-price = {{"%.2f"|format(totalCost)}}
-<br> 
-balance = {{"%.2f"|format(balance)}}
+<div class="card-panel">
+    <!-- username -->
+    <div class="row">
+        total price: {{"%.2f"|format(totalCost)}}
+    </div>
+    <div class="row">
+        current balance: {{"%.2f"|format(balance)}}
+    </div>
+
 <!-- Modal Trigger -->
 {%if totalCost <= balance%}
     <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Buy!</a>
@@ -47,8 +60,13 @@ balance = {{"%.2f"|format(balance)}}
         </div>
     </div>
 {%else%}
-    You cant affor that, {deposit} more?
+
+you can't afford the contents of your basket currently, please either 
+deposit into your <a href="{{ url_for('get_user', username=session['user']) }}">user balance</a>  or remove items from your basket
+
 {%endif%}
+    </div>
+<br> 
 {%endif%}
 {% endblock %}
 

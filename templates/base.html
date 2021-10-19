@@ -15,7 +15,7 @@
 	<header>
         <!-- allows one list to use in multiple places -->  
         {% macro pageList() %}
-            <li><a href="{{ url_for('get_home') }}">Home</a></li>
+            <!--<li><a href="{{ url_for('get_home') }}">Home</a></li>-->
             <li><a href="{{ url_for('get_store')}}">Store</a></li>
             {% if session.get("user", "") %}
                 <li><a href="{{ url_for('get_user', username=session['user']) }}">Profile: {{session['user']}}</a></li>
@@ -63,7 +63,7 @@
         <script>
             {% for message in messages %}
                     $(document).ready(function(){
-                        M.toast({html: "{{ message }}"})
+                        M.toast({html: "<h5>{{ message }}</h5>"})
                     })
 
             {% endfor %} 

@@ -19,7 +19,6 @@ app.secret_key = os.environ.get("SECRET_KEY")
 mongo = PyMongo(app)
 
 
-@app.route("/")
 @app.route("/home")
 def get_home():
     return render_template("home.html")
@@ -49,7 +48,7 @@ def register():
         session["user"] = username
         session["basket"] = []
         flash("registration successful")
-        return redirect(url_for("get_home"))
+        return redirect(url_for("get_store"))
 
     return render_template("register.html")
 
@@ -75,7 +74,7 @@ def login():
             session["user"] = username
             session["basket"] = []
             flash(f'logged in as {username}')
-            return redirect(url_for("get_home"))
+            return redirect(url_for("get_store"))
 
         flash("incorrect username or pasword")
 
@@ -87,7 +86,7 @@ def logout():
     # empty session and tell user its logged out
     session.clear()
     flash("Logged Out")
-    return redirect(url_for("get_home"))
+    return redirect(url_for("get_store"))
 
 
 @app.route("/user/<username>", methods=["GET", "POST"])
@@ -123,13 +122,14 @@ def delete_account(username):
     # or if they are the user trying to delete themself
     if username == session["user"] or session["user"] == "admin":
         mongo.db.users.delete_one({"username": username})
-        flash("user deleted")
         session.clear()
-        return redirect(url_for("get_home"))
+        flash("user deleted")
+        return redirect(url_for("get_store"))
     flash("hey you're not admin stop that")
-    return redirect(url_for("get_home"))
+    return redirect(url_for("get_store"))
 
 
+@app.route("/")
 @app.route("/store", methods=["GET", "POST"])
 def get_store():
     shop = list(mongo.db.stock.find())
