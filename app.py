@@ -99,7 +99,7 @@ def get_user(username):
     if not user: # if user requested doesnt exist, redirect to the logged in user
         if session.get("user"):
             return redirect(url_for("get_user", username=session["user"]))
-        return redirect(url_for("login")
+        return redirect(url_for("login"))
     # get every item of stock the user has bought
     items = list(mongo.db.stock.find({"boughtBy": username, "sold": True}))
 
