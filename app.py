@@ -218,7 +218,7 @@ def purchase_all():
         update_balance(session["user"], -cost)
         flash("items bought")
 
-    return render_template("home.html")
+    return redirect(url_for("get_user", username=session["user"]))
 
 
 # queries DB for user balance
