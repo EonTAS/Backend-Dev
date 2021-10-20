@@ -112,65 +112,110 @@ As a User:
 
 Create Account 
 
-Create Account invalid name
+<img src="testing/register/success.gif" width=33% height=33% alt="Success">
 
-Create Account invalid password
+Create Account invalid name and Create Account invalid password
+
+<img src="testing/register/invalidNamePass.gif" width=33% height=33% alt="invalidNamePass">
+
 
 Create Account that already exists
+
+<img src="testing/register/alreadyExists.gif" width=33% height=33% alt="already exists">
 
 - Want to be able to view items that I have purchased
 
 Click button with no items
 
+<img src="testing/viewItems/0bought.gif" width=33% height=33% alt="none bought">
+
 Click button with 1 item
+
+<img src="testing/viewItems/1bought.gif" width=33% height=33% alt="one bought">
 
 Click button with lots of items
 
+<img src="testing/viewItems/nbought.gif" width=33% height=33% alt="multiple bought">
+
 - Want to be able to deposit money into account so i can buy items
+
+Deposit 1
+
+<img src="testing/deposit/deposit1.gif" width=33% height=33% alt="Deposit 1">
 
 Deposit X
 
-Deposit 0
+<img src="testing/deposit/depositx.gif" width=33% height=33% alt="deposit with decimal value">
 
 Deposit Pi
 
+<img src="testing/deposit/depositPi.gif" width=33% height=33% alt="deposit lots of bits">
+
 Deposit -1
+
+<img src="testing/deposit/depositMinus1.gif" width=33% height=33% alt="deposit negative value">
 
 
 - Want to be able to delete my own account
 
 Delete account
 
+<img src="testing/delete/delete.gif" width=33% height=33% alt="delete account">
+
 
 - Want to be able to log in to my account at a later time
 
 Log in with correct Password
 
+<img src="testing/login/correctCredentials.gif" width=33% height=33% alt="correct login">
+
 log in with correct password but incorrect username
 
-fail to log in with incorrect password
+<img src="testing/login/incorrectName.gif" width=33% height=33% alt="incorrect name">
+
+log in with correct password but incorrect password
+
+<img src="testing/login/incorrectPassword.gif" width=33% height=33% alt="incorrect password">
+
+log in with correct password for someones account but invalid name 
+
+<img src="testing/login/validPassword.gif" width=33% height=33% alt="valid pass">
 
 - Want to be able to log out of my account
 
 Press Logout
 
+<img src="testing/logout/logout.gif" width=33% height=33% alt="logout">
+
 - Want to be able to view all items in the store that i can buy
 
 View Store, show things are locked off
+
+<img src="testing/storeView/storeView.gif" width=33% height=33% alt="store view">
 
 - Want to be able to pick items I want to buy
 
 Put item in shopping basket
 
+<img src="testing/basket/addToBasket.gif" width=33% height=33% alt="add to basket]">
+
 Remove item from basket
 
+<img src="testing/basket/removeFromBasket.gif" width=33% height=33% alt="remove from basket">
+
 Remove item from basket in basket view
+
+<img src="testing/basket/basketPageFunctioning.gif" width=33% height=33% alt="basket page can work">
 
 - Want to be able to buy items in basket
 
 Buy items in basket
 
+<img src="testing/basket/buyItems.gif" width=33% height=33% alt="buy items">
+
 Fail to afford items in basket
+
+<img src="testing/basket/cantAfford.gif" width=33% height=33% alt="cant afford items">
 
 
 
@@ -180,27 +225,37 @@ As an Admin:
 
 Add item
 
+<img src="testing/stock/add.gif" width=33% height=33% alt="add">
+
 Add item that matches description of other item
+
+<img src="testing/stock/perfectMatching.gif" width=33% height=33% alt="add matching">
 
 - Want to be able to edit items after they have been put up in case something is wrong
 
 Edit item 
 
+<img src="testing/stock/edit.gif" width=33% height=33% alt="edit">
+
 Edit item to invalid value
+
+<img src="testing/stock/invalidValueEdit.gif" width=33% height=33% alt="invalid value isnt accepted">
 
 Remove purchaser
 
+<img src="testing/stock/removeOwner.gif" width=33% height=33% alt="remove owner">
+
 Add purchaser
+
+<img src="testing/stock/addOwner.gif" width=33% height=33% alt="add owner">
 
 - Want to be able to remove items from the store
 
 Remove item
 
-Remove to 0 items
+<img src="testing/stock/deleteStock.gif" width=33% height=33% alt="delete">
 
-- Want to be able to delete an arbritary account if there is some problem with it
 
-Delete with Url
 
 # Deployment
 
