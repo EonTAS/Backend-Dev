@@ -41,6 +41,13 @@
                     <!-- Modal Structure -->
                     <div id="modal2" class="modal .modal-close">
                         <div class="modal-content">
+                            {% if items|length == 0%}     
+                            <div class="row">
+                                <div class="card-panel">
+                                    You dont have any items
+                                </div>
+                            </div>
+                            {%else%}
                             <ul class="collection">
                                 {% for item in items %}
                                     <li class="collection-item avatar">
@@ -58,6 +65,7 @@
                                     </li>
                                 {% endfor %}
                             </ul>
+                            {%endif%}
                         </div>
                         <div class="modal-footer">
                             <a href="#!" class="modal-close waves-effect waves-green btn-flat">Cancel</a>

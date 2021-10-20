@@ -33,10 +33,10 @@
 <div class="card-panel">
     <!-- username -->
     <div class="row">
-        total price: {{"%.2f"|format(totalCost)}}
+        total price: £{{"%.2f"|format(totalCost)}}
     </div>
     <div class="row">
-        current balance: {{"%.2f"|format(balance)}}
+        current balance: £{{"%.2f"|format(balance)}}
     </div>
 
 <!-- Modal Trigger -->
@@ -48,7 +48,7 @@
         <div class="modal-content">
             <h4>Confirm Purchase</h4>
             <p>Are you sure you want to buy {%if basket| length == 1%} this item {%else%} these {{basket|length}} items {%endif%} 
-                for <b>£{{totalCost}}</b>?
+                for <b>£{{"%.2f"|format(totalCost)}}</b>?
             </p>
             <p>
                 This will bring your total balance to £{{"%.2f"|format(balance-totalCost)}}
