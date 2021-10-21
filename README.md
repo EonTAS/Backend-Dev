@@ -254,66 +254,114 @@ Just checks that store view works
 
 ## Want to be able to pick items I want to buy
 
-Put item in shopping basket
+- Put item in shopping basket
+
+Test that when you add an item to basket, it is no longer selectable and is marked as in basket
+
+<b>Works as intended</b> 
+
 
 <img src="testing/basket/addToBasket.gif" width=33% height=33% alt="add to basket]">
 
-Remove item from basket
+- Remove item from basket
+
+Tests that you can click an item in basket to remove it again
+
+<b>Works as intended</b> 
 
 <img src="testing/basket/removeFromBasket.gif" width=33% height=33% alt="remove from basket">
 
-Remove item from basket in basket view
+- Remove item from basket in basket view
+
+Test that from within basket view you can correctly interact with items in the basket
+
+<b>Works as intended</b> 
 
 <img src="testing/basket/basketPageFunctioning.gif" width=33% height=33% alt="basket page can work">
 
-- Want to be able to buy items in basket
+## Want to be able to buy items in basket
 
-Buy items in basket
+- Buy items in basket
+
+Test that you can buy items if your balance is high enough
+
+<b>Works as intended</b> 
 
 <img src="testing/basket/buyItems.gif" width=33% height=33% alt="buy items">
 
-Fail to afford items in basket
+- Fail to afford items in basket
+
+Test that when your balance isnt high enough to afford all items in basket, you cant buy
+
+<b>Works as intended</b> 
 
 <img src="testing/basket/cantAfford.gif" width=33% height=33% alt="cant afford items">
 
 
 
-As an Admin:
+## As an Admin:
 
-- Want to be able to add items to the store that can be bought
+## Want to be able to add items to the store that can be bought
 
-Add item
+- Add item
+
+Test that you can add an item with arbritary values
+
+<b>Works as intended</b> 
 
 <img src="testing/stock/add.gif" width=33% height=33% alt="add">
 
-Add item that matches description of other item
+- Add item that matches description of other item
+
+Test that you can add an item that perfectly matches another without having an error
+
+<b>Works as intended</b> 
 
 <img src="testing/stock/perfectMatching.gif" width=33% height=33% alt="add matching">
 
-- Want to be able to edit items after they have been put up in case something is wrong
+## Want to be able to edit items after they have been put up in case something is wrong
 
-Edit item 
+- Edit item 
+
+Test that you can edit an item and have its changes save
+
+<b>Works as intended</b> 
 
 <img src="testing/stock/edit.gif" width=33% height=33% alt="edit">
 
-Edit item to invalid value
+- Edit item to invalid value
+
+Test that you cant edit an item to an invalid value 
+
+<b>Works as intended</b> 
 
 <img src="testing/stock/invalidValueEdit.gif" width=33% height=33% alt="invalid value isnt accepted">
 
-Remove purchaser
+- Remove purchaser
+
+Test that when you remove the purchaser from an item, it is no longer marked as bought and is purchasable again
+
+<b>Works as intended</b> 
 
 <img src="testing/stock/removeOwner.gif" width=33% height=33% alt="remove owner">
 
-Add purchaser
+- Add purchaser
+
+Test that you can add a purchaser and it locks off from buying it
+
+<b>Works as intended</b> 
 
 <img src="testing/stock/addOwner.gif" width=33% height=33% alt="add owner">
 
-- Want to be able to remove items from the store
+## Want to be able to remove items from the store
 
-Remove item
+- Remove item
+
+Test that you can delete an item from stock and have it removed entirely
+
+<b>Works as intended</b> 
 
 <img src="testing/stock/deleteStock.gif" width=33% height=33% alt="delete">
-
 
 
 # Current State :
