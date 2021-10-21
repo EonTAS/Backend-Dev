@@ -349,11 +349,27 @@ Test that you can delete an item from stock and have it removed entirely
 <img src="testing/stock/deleteStock.gif" width=33% height=33% alt="delete">
 
 
-## Formatting tests
+## Formatting/Lighthouse tests
 
 app.py follows PEP 8 style guide, tested using http://pep8online.com/ - returning "All right"
 
-- Lighthouse tests 
+### not logged in
+
+Page | Desktop: | Performance | Accessibility | Best Practices | Mobile: | Performance | Accessibility | Best Practices 
+--- | --- | --- | --- | --- |--- |--- |--- |--- |
+Store |  | 100 | 94 | 100 |  | 98 | 94 | 100 | 
+Login |  | 100 | 96 | 100 |  | 98 | 96 | 100 | 
+Register |  | 100 | 96 | 100 |  | 97 | 96 | 100 |
+
+### logged in
+
+Page | Desktop: | Performance | Accessibility | Best Practices | Mobile: | Performance | Accessibility | Best Practices 
+--- | --- | --- | --- | --- |--- |--- |--- |--- |
+Store |  | 100 | 94 | 100 |  | 97 | 94 | 100 | 
+Profile |  | 100 | 94 | 100 |  | 98 | 94 | 100 | 
+Basket (empty) |  | 100 | 93 | 100 |  | 98 | 93 | 100 | 
+Basket (3 items) |  | 100 | 95 | 100 |  | 97 | 95 | 100 | 
+
 
 
 # Deployment
@@ -398,12 +414,3 @@ This website is hosted on heroku and the database is stored in mongoDB. An accou
 ## My Upload
 
 Heroku app can be found here: https://backend-development-thingy.herokuapp.com/
-
-## How to run locally
-
-
-
-# Credits: 
-
-
-- 4.3	Document the deployment process in a README file in English that also explains the application’s purpose and the value that it provides to its users 
