@@ -2,6 +2,10 @@
 
 Create a stock management website that makes use of a database to track how much of each item is in stock and track purchases made by individual users.
 
+stored on mongoDB - https://cloud.mongodb.com/v2/61139e25f0eba81f9f45682c#metrics/replicaSet/613f6895e52339380b7ad052/explorer/Stock/stock/find
+
+Heroku app can be found here: https://backend-development-thingy.herokuapp.com/
+
 # Database Plan
 
 stock:
@@ -16,11 +20,8 @@ users:
 -   Name
 -   password-hash
 -   balance
+One to many - each stock item can be bought by 1 and only 1 user, but each user can buy as many items as wanted
 
-
-stored on mongoDB - https://cloud.mongodb.com/v2/61139e25f0eba81f9f45682c#metrics/replicaSet/613f6895e52339380b7ad052/explorer/Stock/stock/find
-
-Heroku app can be found here: https://backend-development-thingy.herokuapp.com/
 
 # User Stories :
 
@@ -79,24 +80,14 @@ user can view all previous purchases alongside when the purchase was made
 
 # Typography and Color Scheme :
 
+using Materialize to create basic interaction, font etc will be default, teal will be used as main accent colour.
+
+Each page will be either a single form to interact with or a list of items to pick between, both using Materialize Cards to make entry's look appealing.
 
 
 
 # Wireframes :
 
-Generally simple, have a top bar to select each thing, updates dependent on if logged in or not. goes betweeen
-
-Store, Log In, Create Account
-
-to 
-
-Store, Basket, Account, Log Out
-
-based on log in
-
-Account has a button for previous purchases, as well as just listing user details
-
-# Current State :
 
 
 
@@ -106,94 +97,162 @@ Account has a button for previous purchases, as well as just listing user detail
 - Views
 
 # Client Story Testing
-As a User:
+## As a User:
 
-- Want to be able to make an account
+## Want to be able to make an account
 
-Create Account 
+- Create Account 
+
+tests that creating an account that doesnt already exist works
+
+<b>Works as intended</b> 
 
 <img src="testing/register/success.gif" width=33% height=33% alt="Success">
 
-Create Account invalid name and Create Account invalid password
+- Create Account with invalid name or invalid password 
+
+tests that input validation works as intended rejecting invalid info
+
+<b>Works as intended</b> 
 
 <img src="testing/register/invalidNamePass.gif" width=33% height=33% alt="invalidNamePass">
 
 
-Create Account that already exists
+- Create Account that already exists
+
+tests that you can't create an account that matches another's username exactly
+
+<b>Works as intended</b> 
 
 <img src="testing/register/alreadyExists.gif" width=33% height=33% alt="already exists">
 
-- Want to be able to view items that I have purchased
+## Want to be able to view items that I have purchased
 
-Click button with no items
+- Click button with no items
+
+Makes sure item view works when you have not yet bought an item
+
+<b>Works as intended</b> 
 
 <img src="testing/viewItems/0bought.gif" width=33% height=33% alt="none bought">
 
-Click button with 1 item
+- Click button with 1 item
+
+tests that if you have one item, the list shows correctly
+
+<b>Works as intended</b> 
 
 <img src="testing/viewItems/1bought.gif" width=33% height=33% alt="one bought">
 
-Click button with lots of items
+- Click button with lots of items
+
+tests that if you have multiple items, the list shows correctly
+
+<b>Works as intended</b> 
 
 <img src="testing/viewItems/nbought.gif" width=33% height=33% alt="multiple bought">
 
-- Want to be able to deposit money into account so i can buy items
+## Want to be able to deposit money into account so i can buy items
 
-Deposit 1
+- Deposit 1
+
+Tests that you can input a deposit value and have it work
+
+<b>Works as intended</b> 
 
 <img src="testing/deposit/deposit1.gif" width=33% height=33% alt="Deposit 1">
 
-Deposit X
+- Deposit X
+
+Tests that you can input a deposit with a decimal value
+
+<b>Works as intended</b> 
 
 <img src="testing/deposit/depositx.gif" width=33% height=33% alt="deposit with decimal value">
 
-Deposit Pi
+- Deposit a floating point
+
+Tests that you cant input a value thats precise to more than £0.01
+
+<b>Works as intended</b> 
 
 <img src="testing/deposit/depositPi.gif" width=33% height=33% alt="deposit lots of bits">
 
-Deposit -1
+- Deposit -1
+
+Tests that you cant deposit a negative value 
+
+<b>Works as intended</b> 
 
 <img src="testing/deposit/depositMinus1.gif" width=33% height=33% alt="deposit negative value">
 
 
-- Want to be able to delete my own account
+## Want to be able to delete my own account
 
-Delete account
+- Delete account
+
+Tests that you can delete your account
+
+<b>Works as intended</b> 
 
 <img src="testing/delete/delete.gif" width=33% height=33% alt="delete account">
 
 
-- Want to be able to log in to my account at a later time
+## Want to be able to log in to my account at a later time
 
-Log in with correct Password
+- Log in with correct Password
+
+Tests that with valid user info you can log in
+
+<b>Works as intended</b> 
 
 <img src="testing/login/correctCredentials.gif" width=33% height=33% alt="correct login">
 
-log in with correct password but incorrect username
+- log in with correct username but incorrect password
+
+Tests that if you misstype your username then it doesnt log in
+
+<b>Works as intended</b> 
 
 <img src="testing/login/incorrectName.gif" width=33% height=33% alt="incorrect name">
 
-log in with correct password but incorrect password
+- log in with correct password but incorrect username
+
+Tests that if you misstype your password then it doesnt log in
+
+<b>Works as intended</b> 
 
 <img src="testing/login/incorrectPassword.gif" width=33% height=33% alt="incorrect password">
 
-log in with correct password for someones account but invalid name 
+- log in with correct password for someones account but invalid name 
+
+Tests that if you type a valid password to a different account it doesnt magically log into theirs
+
+<b>Works as intended</b> 
 
 <img src="testing/login/validPassword.gif" width=33% height=33% alt="valid pass">
 
-- Want to be able to log out of my account
+## Want to be able to log out of my account
 
-Press Logout
+- Logout
+
+Tests that logging out logs out
+
+<b>Works as intended</b> 
 
 <img src="testing/logout/logout.gif" width=33% height=33% alt="logout">
 
-- Want to be able to view all items in the store that i can buy
+## Want to be able to view all items in the store that i can buy
 
-View Store, show things are locked off
+- View Store, show things are locked off
+
+Just checks that store view works
+
+<b>Works as intended</b> 
 
 <img src="testing/storeView/storeView.gif" width=33% height=33% alt="store view">
 
-- Want to be able to pick items I want to buy
+## Want to be able to pick items I want to buy
 
 Put item in shopping basket
 
@@ -255,6 +314,9 @@ Remove item
 
 <img src="testing/stock/deleteStock.gif" width=33% height=33% alt="delete">
 
+
+
+# Current State :
 
 
 # Deployment
