@@ -79,7 +79,9 @@ using Materialize to create basic interaction, font etc will be default, teal wi
 
 Each page will be either a single form to interact with or a list of items to pick between, both using Materialize Cards to make entry's look appealing.
 
+# Admin
 
+To act as admin so you can edit items, log in with the username "admin" and the password "admin"
 
 # Client Story Testing
 ## As a User:
