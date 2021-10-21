@@ -134,7 +134,7 @@ Makes sure item view works when you have not yet bought an item
 
 <b>Works as intended</b> 
 
-<img src="testing/viewItems/0bought.gif" width=33% height=33% alt="none bought">
+<img src="testing/viewItems/0Bought.gif" width=33% height=33% alt="none bought">
 
 - Click button with 1 item
 
@@ -142,7 +142,7 @@ tests that if you have one item, the list shows correctly
 
 <b>Works as intended</b> 
 
-<img src="testing/viewItems/1bought.gif" width=33% height=33% alt="one bought">
+<img src="testing/viewItems/1Bought.gif" width=33% height=33% alt="one bought">
 
 - Click button with lots of items
 
@@ -150,7 +150,7 @@ tests that if you have multiple items, the list shows correctly
 
 <b>Works as intended</b> 
 
-<img src="testing/viewItems/nbought.gif" width=33% height=33% alt="multiple bought">
+<img src="testing/viewItems/nBought.gif" width=33% height=33% alt="multiple bought">
 
 ## Want to be able to deposit money into account so i can buy items
 
@@ -168,7 +168,7 @@ Tests that you can input a deposit with a decimal value
 
 <b>Works as intended</b> 
 
-<img src="testing/deposit/depositx.gif" width=33% height=33% alt="deposit with decimal value">
+<img src="testing/deposit/depositX.gif" width=33% height=33% alt="deposit with decimal value">
 
 - Deposit a floating point
 
