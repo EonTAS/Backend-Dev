@@ -73,11 +73,6 @@ user can log out
 user can view all previous purchases alongside when the purchase was made
 
 
-# Future Features: 
-
-
-
-
 # Typography and Color Scheme :
 
 using Materialize to create basic interaction, font etc will be default, teal will be used as main accent colour.
@@ -85,16 +80,6 @@ using Materialize to create basic interaction, font etc will be default, teal wi
 Each page will be either a single form to interact with or a list of items to pick between, both using Materialize Cards to make entry's look appealing.
 
 
-
-# Wireframes :
-
-
-
-
-# Testing
-- Navigation
-
-- Views
 
 # Client Story Testing
 ## As a User:
@@ -364,52 +349,61 @@ Test that you can delete an item from stock and have it removed entirely
 <img src="testing/stock/deleteStock.gif" width=33% height=33% alt="delete">
 
 
-# Current State :
+## Formatting tests
+
+app.py follows PEP 8 style guide, tested using http://pep8online.com/ - returning "All right"
+
+- Lighthouse tests 
 
 
 # Deployment
 
+This website is hosted on heroku and the database is stored in mongoDB. An account on both of these services is required to deploy your own version.
+
+- Fork the project so you have your own version
+
+## mongoDB steps
+
+- Create a new cluster for your database, selecting provider/Region/tier as you want and give the DB a name
+
+- Add 2 new Collections in the database, one names "users" and one named "stock" (or modify code as appropriate)
+
+- Press the Databases button on the left of the site
+
+- click the "Connect button" on your cluster and select "connect your application"
+
+- select Database access and create a new root user with a password you decide on
+
+- select python as your driver and copy the uri provided on this page for later use, modifying it to have the root password you specified above.
+
+## Heroku steps
+
+- Press the New Button at the top right of the Heroku dashboard
+
+- Press "Create new app"
+
+- Give the app a unique app name and a good region and create app
+
+- On the page that opens, select Github in the "Deployment method" section
+
+- Select your repo
+
+- Go to Settings tab at the top of the page
+
+- Go to the Config Vars section and press "Reveal Config Vars"
+
+- Add a var for IP, MONGO_DBNAME, MONGO_URI, PORT and SECRET_KEY (URI selected from above, DBNAME as you named it, etc)
+
+
+## My Upload
+
+Heroku app can be found here: https://backend-development-thingy.herokuapp.com/
 
 ## How to run locally
 
-## How to use the site
 
 
 # Credits: 
 
-LO1 Design, develop and implement a back-end for a full-stack web application using Python and a micro-framework
 
-- 1.1	Design a front end for a data-driven web application that meets accessibility guidelines, follows the principles of UX design, meets its given purpose and provides a set of user interactions -
-- 1.2	Implement custom HTML and CSS code to create a responsive full-stack application consisting of one or more HTML pages with relevant responses to user actions and a set of data manipulation functions -
-- 1.3	Build a non-relational database-backed Flask web application that allows users to store and manipulate data records about a particular domain. -
-- 1.4	Design a database structure that is relevant for your domain, consisting of a minimum of one collection. -
-- 1.5	Design and implement manual test procedures to assess functionality, usability, responsiveness and data management within the Full Stack web application -
-- 1.6	Write Python code that is consistent in style and conforms to the PEP8 style guide (or another explicitly mentioned style guide, such as Google's) and validated HTML and CSS code. =.
-- 1.7	Include sufficient custom Python logic to to demonstrate your proficiency in the language -
-- 1.8	Include functions with compound statements such as if conditions and/or loops in your Python code -
-- 1.9	Write code that meets minimum standards for readability (comments, indentation, consistent and meaningful naming conventions). ..
-- 1.10	Name files consistently and descriptively, without spaces or capitalisation to allow for cross-platform compatibility. -
-
-LO2 Demonstrate competence in modeling and managing non-relational data effectively
-
-- 2.1	Design a data model that fits the purpose of the project -
-- 2.2	Develop the model into a usable non-relational database where data is stored in a consistent and well-organised manner. -
-
-
-LO3 Demonstrate competence in querying and manipulating non-relational data effectively
-
-- 3.1	Create functionality for users to create, locate, display, edit and delete records -
-
-
-LO4 Deploy a full stack web application to a cloud platform
-
-- 4.1	Deploy a final version of the full-stack application code to a cloud-based hosting platform (e.g. Heroku) and test to ensure it matches the development version 
-- 4.2	Ensure that final deployed code is free of commented out code and has no broken internal links 
 - 4.3	Document the deployment process in a README file in English that also explains the application’s purpose and the value that it provides to its users 
-
-LO5 Identify and apply security features
-
-- 5.1	Use Git & GitHub for version control of a Full Stack web application up to deployment, using commit messages to document the development process. -
-- 5.2	Commit final code that is free of any passwords or security sensitive information, to the repository and to the hosting platform -
-- 5.3	Use environment variables, or files that are in .gitignore, to hide all secret keys -
-- 5.4	Ensure that DEBUG mode is turned off in production versions -

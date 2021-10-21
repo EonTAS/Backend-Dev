@@ -8,14 +8,13 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" type="text/css">
     {% block styles %}
     {% endblock %}
-    <title>Stuff</title>
+    <title>Corner Shop</title>
 </head>
 <body>
 
 	<header>
         <!-- allows one list to use in multiple places -->  
         {% macro pageList() %}
-            <!--<li><a href="{{ url_for('get_home') }}">Home</a></li>-->
             <li><a href="{{ url_for('get_store')}}">Store</a></li>
             {% if session.get("user", "") %}
                 <li><a href="{{ url_for('get_user', username=session['user']) }}">Profile: {{session['user']}}</a></li>
@@ -31,7 +30,7 @@
 	    <!-- desktop -->
 	    <nav class="nav-extended teal darken-3">
 	        <div class="nav-wrapper">
-	            <a href="#!" class="brand-logo">Unnamed shop #47</a>
+	            <a href="#!" class="brand-logo">Corner Shop</a>
 	            <a href="#" data-target="mobile-demo" class="sidenav-trigger right"><i class="material-icons">menu</i></a>
 	            <ul class="right hide-on-med-and-down">
                     {{ pageList() }}

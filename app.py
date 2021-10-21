@@ -19,11 +19,6 @@ app.secret_key = os.environ.get("SECRET_KEY")
 mongo = PyMongo(app)
 
 
-@app.route("/home")
-def get_home():
-    return render_template("home.html")
-
-
 @app.route("/register", methods=["GET", "POST"])
 def register():
     # if POST request then attempt to register
@@ -239,5 +234,4 @@ def update_balance(username, change):
 
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
-            port=int(os.environ.get("PORT")),
-            debug=True)
+            port=int(os.environ.get("PORT")))
